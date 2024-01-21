@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct ScreenView: View {
+    @State private var isSplashActive: Bool = true
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+            if isSplashActive{
+                LaunchScreen()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            withAnimation {
+                                isSplashActive = false
+                            }
+                        }
+                    }
+            }else {
+                OnboardingView()
+            }
+        }
     }
 }
 
